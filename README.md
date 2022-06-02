@@ -2,7 +2,7 @@
 
 A demo site I used to do all my experiments regarding Cube CSS methodology.
 
-Here I'm testing some intresting layout solution and CSS architecture enhancements using Cube CSS.
+Here I'm testing my SCSS library, some intresting layout solution and CSS architecture enhancements using Cube CSS.
 
 
 ### Before to start
