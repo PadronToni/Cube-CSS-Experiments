@@ -1,0 +1,106 @@
+@use '../abstracts/' as *;
+
+.flex-row {
+	display: flex;
+	flex-flow: row;
+	align-items: center;
+
+	&.spaced-between {
+		justify-content: space-between;
+	}
+
+	&.centered {
+		justify-content: center;
+	}
+
+	&.left {
+		justify-content: flex-start;
+	}
+
+	&.right {
+		justify-content: flex-end;
+	}
+
+	&.spaced-around {
+		justify-content: space-around;
+	}
+
+	&.space-evenly {
+		justify-content: space-evenly;
+	}
+
+	&.wrap {
+		flex-wrap: wrap;
+	}
+
+	&.gap-1 {
+		gap: $s-1;
+	}
+	&.gap-2 {
+		gap: $s-2;
+	}
+	&.gap-3 {
+		gap: $s-3;
+	}
+	&.gap-4 {
+		gap: $s-4;
+	}
+
+}
+
+.evenly-flex-items {
+	& > * {
+		flex: auto;
+	}
+}
+
+.row-item {
+	display: inline-flex;
+	align-items: center;
+}
+
+.flex-col {
+	display: flex;
+	position: relative;
+	flex-flow: column;
+
+	&.spaced-between {
+		justify-content: space-between;
+	}
+
+	&.spaced-around {
+		justify-content: space-around;
+	}
+
+	&.centered {
+		justify-content: center;
+	}
+
+	&.right-aligned {
+		align-items: flex-end;
+	}
+
+	&.full-height {
+		height: 100%;
+	}
+
+	&.gap-1 {
+		gap: $s-1;
+	}
+	&.gap-2 {
+		gap: $s-2;
+	}
+	&.gap-3 {
+		gap: $s-3;
+	}
+	&.gap-4 {
+		gap: $s-4;
+	}
+
+	& > .spaced-bottom {
+		margin-top: auto;
+	}
+	& > .spaced-top {
+		margin-bottom: auto;
+	}
+}

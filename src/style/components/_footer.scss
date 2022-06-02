@@ -1,0 +1,5 @@
+@use '../abstracts/' as *;
+
+.footer {
+	background-color: map-get($clr-neutrals, '900');
+}

@@ -1,0 +1,33 @@
+@use "../abstracts/" as *;
+
+.list {
+}
+
+.grid-column {
+	--columns: 4;
+	--gap: 1em;
+
+	display: grid;
+	grid-template-columns: repeat(var(--columns), 1fr);
+	gap: var(--gap);
+
+	& > * {
+		grid-column: span var(--columns);
+	}
+
+	@include md {
+		--columns: 8;
+	}
+
+	@include ld {
+		--columns: 12;
+	}
+
+	// Items
+	& > .col-2 {
+		grid-column: span 2;
+	}
+	& > .col-4 {
+		grid-column: span 4;
+	}
+}

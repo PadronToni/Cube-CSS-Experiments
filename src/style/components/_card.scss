@@ -1,0 +1,27 @@
+@use "../abstracts/" as *;
+
+.card {
+	--bg: #{map-get($clr-neutrals, "100")};
+
+	background-color: var(--bg);
+	@include default-corners;
+	@include shadow-1;
+	overflow: hidden;
+
+	&__img {
+		width: 100%;
+		min-height: 10rem;
+		height: auto;
+
+		background-color: map-get($clr-maroon, "600");
+	}
+
+	&__content {
+		--gap: .5em;
+
+		h4,
+		h5 {
+			font-size: 1rem;
+		}
+	}
+}

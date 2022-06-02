@@ -1,0 +1,27 @@
+@use "../abstracts/" as *;
+
+.hero {
+	--min-height: 40vh;
+
+	@include md {
+		--min-height: 45vh;
+	}
+	@include ld {
+		--min-height: 55vh;
+	}
+
+	&[data-color="main"] {
+		background-color: map-get($clr-calypso, "500");
+		color: $clr-contrast-dark;
+	}
+	&[data-color="accent"] {
+		background-color: map-get($clr-maroon, "500");
+		color: $clr-contrast-dark;
+	}
+
+	h1,
+	h2,
+	h3 {
+		font-family: var(--ff-bold);
+	}
+}

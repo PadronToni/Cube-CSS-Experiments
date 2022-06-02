@@ -1,0 +1,5 @@
+@use "../abstracts/" as *;
+
+.bold-text {
+	font-family: var(--ff-bold);
+}

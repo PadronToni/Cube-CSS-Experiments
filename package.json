@@ -1,0 +1,16 @@
+{
+  "name": "cube-css-experiments",
+  "version": "1.0.0",
+  "description": "A series of css experiments regarding Cube CSS methodology",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@parcel/transformer-sass": "2.6.0",
+    "parcel": "^2.6.0"
+  }
+}

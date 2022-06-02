@@ -1,0 +1,9 @@
+
+@use '../abstracts/' as *;
+
+.container {
+	display: grid;
+	place-content: center;
+
+	min-height: var(--min-height, 2rem);
+}

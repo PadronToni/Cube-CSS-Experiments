@@ -1,0 +1,5 @@
+@use "../abstracts/" as *;
+
+.stack > * + * {
+	margin-top: var(--gap, 1em);
+}

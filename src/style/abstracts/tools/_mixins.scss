@@ -1,0 +1,142 @@
+////
+/// MIXINS
+/// Una collezione di mixin per ogni possibile scopo
+/// @author Simone Boccuzzi
+////
+
+@use "../settings" as *;
+
+/// Una collezione di regole per rendere il testo non selezionabile
+/// @output regole per impedire la selezione del testo
+@mixin unselectable-text {
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently */
+}
+
+/// Genera delle custom properties basate sulla configurazione colore
+/// @param {Map} $theme - tema
+/// @output custom properties di colori
+@mixin spread-theme-palette($theme) {
+	$colors: map-get($theme, color);
+	@each $name, $palette in $colors {
+		@each $hue, $value in $palette {
+			@if $hue == "contrast" or $hue == "contrast-contrast" {
+			} @else {
+				--clr-#{$name}-#{$hue}: #{$value};
+			}
+		}
+	}
+}
+
+// Outputs the shorthand `font` CSS property, based on a set of typography values. Falls back to
+// the individual properties if a value that isn't allowed in the shorthand is passed in.
+@mixin _typography-font-shorthand($font-size, $font-weight, $line-height, $font-family) {
+	// If any of the values are set to `inherit`, we can't use the shorthand
+	// so we fall back to passing in the individual properties.
+	@if (
+		$font-size ==
+			inherit or
+			$font-weight ==
+			inherit or
+			$line-height ==
+			inherit or
+			$font-family ==
+			inherit or
+			$font-size ==
+			null or
+			$font-weight ==
+			null or
+			$line-height ==
+			null or
+			$font-family ==
+			null
+	) {
+		font-size: $font-size;
+		font-weight: $font-weight;
+		line-height: $line-height;
+		font-family: $font-family;
+	} @else {
+		// Otherwise use the shorthand `font`, because it's the least amount of bytes. Note
+		// that we need to use interpolation for `font-size/line-height` in order to prevent
+		// Sass from dividing the two values.
+		font: $font-weight #{$font-size}/#{$line-height} $font-family;
+	}
+}
+
+/// Restituisce il livello tipografico specificato.
+/// @param {String} $name - nome del livello tipografico
+/// @param {Boolean} $important - se `true`, aggiunge `!important` alla proprieta'
+/// @output collezione di regole che definisco il livello tipografico
+@mixin typography-level($name, $important: false) {
+	$imp-value: "";
+	@if $important {
+		$imp-value: "!important";
+	}
+
+	$level: map-get($type-config, $name);
+
+	@if $level == null {
+		@warn "\"#{$name}\" does not exist as typography level";
+	}
+
+	@each $prop, $value in $level {
+		#{$prop}: #{$value} #{$imp-value};
+	}
+
+	// @include _typography-font-shorthand(-size, -weight, -height, -family)
+}
+
+/// Restituisce i border radius standardizati
+@mixin default-corners($corner-size: normal, $side: default, $important: false) {
+
+	$cr: 2px;
+	// Recupera il valore del radius
+	@if $corner-size == "round" {
+		$cr: 50%;
+	} @else {
+		$cr: map-get($corner-radiuses, $corner-size);
+	}
+
+	// Definisce una serie di angoli possibili
+	$corner-map: (
+		default: (
+			border-radius: #{$cr},
+		),
+		top: (
+			border-radius: "#{$cr} #{$cr} 0 0",
+		),
+		right: (
+			border-radius: "0 #{$cr} #{$cr} 0",
+		),
+		bottom: (
+			border-radius: "0 0 #{$cr} #{$cr}",
+		),
+		left: (
+			border-radius: "#{$cr} 0 0 #{$cr}",
+		),
+		diagonal-top-bottom: (
+			border-radius: "#{$cr} 0 #{$cr} 0",
+		),
+		diagonal-bottom-top: (
+			border-radius: "0 #{$cr} 0 #{$cr}",
+		),
+	);
+
+	// Imposta gli angoli scelti
+	$corners: map-get($corner-map, $side);
+
+	// Imposta il valore di importanza
+	$imp-value: "";
+	@if $important {
+		$imp-value: "!important";
+	}
+
+	// Aggiunge le proprieta' degli angoli con i rispettivi valori
+	@each $prop, $value in $corners {
+		#{$prop}: #{$value} #{$imp-value};
+	}
+}

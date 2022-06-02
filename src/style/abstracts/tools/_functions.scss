@@ -1,0 +1,48 @@
+////
+/// FUNCTIONS
+/// Una collezione di functions per ogni possibile scopo
+/// @author Simone Boccuzzi
+////
+
+/// Restituisce la custom property corretta per i colori
+/// @prop {String} $name - nome del colore
+/// @prop {String} $hue [default] - tonalita' del colore (50-900 | lighter | darker | ecc.)
+@function clr($name, $hue: default) {
+	@return var(--clr-#{$name}-#{$hue});
+}
+
+/// For a given hue in a palette, return the contrast color from the map of contrast palettes.
+/// @param {Map} $palette
+/// @param {String} $hue
+@function get-contrast($palette, $hue) {
+  @return map-get(map-get($palette, contrast), $hue);
+}
+
+/// Creates a map of hues to colors for a theme. This is used to define a theme palette in terms
+/// of the Material Design hues.
+/// @param $base-palette
+/// @param $default
+/// @param $lighter
+/// @param $darker
+/// @param $text
+@function clr-palette($base-palette, $default: 500, $lighter: 100, $darker: 700, $text: $default) {
+  $result: map-merge($base-palette, (
+    default: map-get($base-palette, $default),
+    lighter: map-get($base-palette, $lighter),
+    darker: map-get($base-palette, $darker),
+    text: map-get($base-palette, $text),
+
+    default-contrast: get-contrast($base-palette, $default),
+    lighter-contrast: get-contrast($base-palette, $lighter),
+    darker-contrast: get-contrast($base-palette, $darker)
+  ));
+
+  // For each hue in the palette, add a "-contrast" color to the map.
+  @each $hue, $color in $base-palette {
+    $result: map-merge($result, (
+      '#{$hue}-contrast': get-contrast($base-palette, $hue)
+    ));
+  }
+
+  @return $result;
+}

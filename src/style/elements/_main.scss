@@ -1,0 +1,7 @@
+@use "../abstracts/" as *;
+
+main {
+	max-width: 960px;
+	padding-inline: $s-4;
+	margin-inline: auto;
+}

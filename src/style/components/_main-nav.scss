@@ -1,0 +1,6 @@
+
+@use '../abstracts/' as *;
+
+.main-nav {
+	background-color: map-get($clr-neutrals , '100');
+}

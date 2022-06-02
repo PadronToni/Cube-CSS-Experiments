@@ -1,0 +1,62 @@
+@use '../abstracts/' as *;
+
+// Classi per azzerare margin e padding 
+.is-marginless {
+  margin: 0 !important;
+}
+.is-paddingless {
+  padding: 0 !important;
+}
+
+// Utility variables per il ciclo qui sotto
+$spacing-shortcuts: (
+  'margin': 'm',
+  'padding': 'p',
+) !default;
+$spacing-directions: (
+  'top': 't',
+  'right': 'r',
+  'bottom': 'b',
+  'left': 'l',
+) !default;
+$spacing-horizontal: 'x' !default;
+$spacing-vertical: 'y' !default;
+$spacing-values: (
+  '0': #{$s-0},
+  '1': #{$s-1},
+  '2': #{$s-2},
+  '3': #{$s-3},
+  '4': #{$s-4},
+  '5': #{$s-5},
+  '6': #{$s-6},
+) !default;
+
+// Genera una serie di classi helper per settare margin e padding basate sulle spaziature
+@each $property, $shortcut in $spacing-shortcuts {
+  @each $name, $value in $spacing-values {
+    // All directions
+    .#{$shortcut}-#{$name} {
+      #{$property}: $value !important;
+    }
+    // Cardinal directions
+    @each $direction, $suffix in $spacing-directions {
+      .#{$shortcut}#{$suffix}-#{$name} {
+        #{$property}-#{$direction}: $value !important;
+      }
+    }
+    // Horizontal axis
+    @if $spacing-horizontal != null {
+      .#{$shortcut}#{$spacing-horizontal}-#{$name} {
+        #{$property}-left: $value !important;
+        #{$property}-right: $value !important;
+      }
+    }
+    // Vertical axis
+    @if $spacing-vertical != null {
+      .#{$shortcut}#{$spacing-vertical}-#{$name} {
+        #{$property}-top: $value !important;
+        #{$property}-bottom: $value !important;
+      }
+    }
+  }
+}
